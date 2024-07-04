@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Interface</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+
+            background-color: rgb(95, 166, 232);
+            height:100vh;
+            width:100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            width:100%;
+            padding:0.5rem 0.4rem;
+            padding-left: 11rem;
+            border: 0.1px transparent;
+            border-radius: 20px;
+           -webkit-border-radius: 20px;
+           -moz-border-radius: 20px;
+           margin: auto;
+           display: block;
+           text-overflow: ellipsis;
+
+
+        }
+       
+        input:focus{
+          outline: none;
+          border: 0.1px transparent;
+        }
+        input::placeholder{
+            color: rgb(174, 20, 102);
+            font-size: smaller;
+        }
+        .search-interface-box{
+            width:90%;
+            position: relative;
+            max-width: 800px;
+        }
+        .dropdown-menu{
+            width: 80%;
+            list-style-type: none;
+            background-color: aliceblue;
+           border-radius: 20px;
+           
+           margin-top: 0.5rem;
+           height: 0px;
+            overflow: hidden;
+            transition: all 0.8s;
+            position: absolute;
+        }
+        .dropdown-menu li{
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+           
+            cursor: pointer;
+            text-align: justify;
+            transition: all 0.2s linear;
+            border-radius: 10px;
+           
+        }
+        .dropdown-menu li:hover, .dropdown-menu li:active{
+            background-color: rgb(174, 20, 102);
+            color: white;
+           
+        }
+        #toggle-button{
+
+             padding:0.5rem 0rem;
+            border: 0.1px transparent;
+            border-radius: 20px;
+            background-color: rgb(174, 20, 102);
+            color: aliceblue;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            width: 170px;
+            font-size: small;
+            
+        }
+        #search{
+            position: absolute;
+            right: 4%;
+            top:5px;
+            font-size: 120%;
+           
+            color: rgb(174, 20, 102);
+        }
+        button{
+            background-color: transparent;
+            border: transparent !important;
+            cursor: pointer;
+        }
+        #dropdown-icon{
+            margin-left: 0.1rem;
+            padding: 0.3rem 0;
+            transition: all 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="search-interface-box">
+        <button id="search"><i class="bi bi-search"></i></button>
+        <input type="search" name="search" id="search-bar" placeholder="search anything">
+       <button id="toggle-button"> 
+        <span id="selected-option">Everything</span>
+        <span id="dropdown-icon">
+            <i class="bi-chevron-up"></i>
+
+        </span>
+       </button>
+        <ul class="dropdown-menu">
+        <li>Everything</li>
+        <li>Software Development</li>
+        <li>Web Development</li>
+        <li>Data Analyst</li>
+        <li>IT Consultant</li>
+        <li>Network Administrator</li>
+       </ul>
+
+    </div>
+
+<script>
+    const searchBar = document.getElementById('search-bar');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const toggleButton = document.getElementById('toggle-button');
+    const selectedOption = document.getElementById('selected-option');
+    const dropdownIcon = document.querySelector('#dropdown-icon i');
+    const options = document.querySelectorAll('.dropdown-menu li');
+   
+   
+    dropdownMenu.style.height="0px"
+    toggleButton.addEventListener('click', () => {
+        dropdownMenu.style.height = dropdownMenu.style.height === '0px'? '320px' : '0px';
+        dropdownIcon.classList.toggle('bi-chevron-up');
+        dropdownIcon.classList.toggle('bi-chevron-down');
+    },true);
+    document.addEventListener('click',(e)=>{
+        if( e.target.id!=='toggle-button' && e.target.id!=='dropdown-icon' && e.target.id!=='selected-option'){
+            dropdownMenu.style.height = '0px';
+            dropdownIcon.classList.remove('bi-chevron-up');
+            dropdownIcon.classList.add('bi-chevron-down');
+        }
+    });
+    options.forEach(option =>{
+        option.addEventListener('click', () =>{
+            searchBar.placeholder = "Search in "+option.innerText.toLowerCase()+"...";
+            selectedOption.innerText = option.innerText;
+        });
+    });    
+</script>
+
+    
+</body>
+</html>
