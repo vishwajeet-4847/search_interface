@@ -158,7 +158,8 @@
     });
     options.forEach(option =>{
         option.addEventListener('click', () =>{
-            searchBar.placeholder = "Search in "+option.innerText.toLowerCase()+"...";
+        let text = option.innerText.toLowerCase() === 'everything' ? 'search anything' :  "Search in "+option.innerText.toLowerCase()+"...";
+            searchBar.placeholder = text;
             selectedOption.innerText = option.innerText;
         });
     });    
